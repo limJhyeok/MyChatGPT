@@ -1,0 +1,24 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+
+  chatbot:
+    build:
+      context: ./chatbot
+      dockerfile: Dockerfile
+      args:
+        USE_GPU: false 
+    container_name: chatbot
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./chatbot:/app
+    
+

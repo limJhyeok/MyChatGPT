@@ -1,0 +1,30 @@
+services:
+  chatbot:
+    build:
+      context: ./chatbot
+      dockerfile: Dockerfile
+      args:
+        USE_GPU: true 
+    container_name: chatbot
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./chatbot:/app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+
